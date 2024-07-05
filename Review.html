@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Review and Feedback</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* General styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+.container {
+    width: 80%;
+    margin: auto;
+    overflow: hidden;
+}
+
+nav {
+    background: #333;
+    color: #fff;
+    padding: 10px 0;
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: space-around;
+}
+
+nav ul li {
+    position: relative;
+}
+
+nav ul li a {
+    color: #fff;
+    text-decoration: none;
+    padding: 10px 20px;
+    display: block;
+}
+
+nav ul li a:hover {
+    background: #575757;
+}
+
+nav ul ul {
+    display: none;
+    position: absolute;
+    top: 40px;
+    left: 0;
+    background: #444;
+    padding: 0;
+}
+
+nav ul ul li {
+    width: 200px;
+}
+
+nav ul ul li a {
+    padding: 10px 15px;
+}
+
+nav ul li:hover > ul {
+    display: block;
+}
+
+nav ul ul li a:hover {
+    background: #575757;
+}
+
+h2, h3 {
+    color: #333;
+}
+
+form, table {
+    margin-top: 20px;
+}
+
+form label {
+    display: block;
+    margin: 10px 0 5px;
+}
+
+form input, form select, form textarea, form button {
+    padding: 10px;
+    margin-bottom: 10px;
+    width: 100%;
+    max-width: 400px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+form textarea {
+    resize: vertical;
+}
+
+form button {
+    background: #333;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+}
+
+form button:hover {
+    background: #575757;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+table th, table td {
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: left;
+}
+
+table th {
+    background: #333;
+    color: #fff;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <nav>
+            <ul>
+                <li><a href="Dashboard.html">Dashboard</a></li>
+                <li><a href="Userprofile.html">User Profile</a></li>
+                <li><a href="#dissertations">Dissertations</a>
+                    <ul>
+                        <li><a href="upload.html">Upload Dissertation</a></li>
+                        <li><a href="#view">View Uploaded Dissertations</a></li>
+                        <li><a href="#check">Check Plagiarism</a></li>
+                        <li><a href="#history">Submission History</a></li>
+                    </ul>
+                </li>
+                <li><a href="Plagiarismreports.html">Plagiarism Reports</a></li>
+                <li><a href="Review.html">Review and Feedback</a></li>
+                <li><a href="#resources">Resources</a></li>
+                <li><a href="#settings">Settings</a></li>
+                <li><a href="Logout.html">Logout</a></li>
+            </ul>
+        </nav>
+
+        <div id="review-feedback-section">
+            <h2>Review and Feedback</h2>
+            <div id="academic-feedback">
+                <h3>Academic Staff Feedback</h3>
+                <form id="feedbackForm">
+                    <label for="dissertationSelect">Select Dissertation:</label>
+                    <select id="dissertationSelect" name="dissertationSelect">
+                        <!-- Dissertation options will be populated here -->
+                    </select>
+
+                    <label for="feedback">Feedback:</label>
+                    <textarea id="feedback" name="feedback" rows="4" required></textarea>
+
+                    <button type="submit">Submit Feedback</button>
+                </form>
+            </div>
+
+            <div id="student-revisions">
+                <h3>Student Revisions</h3>
+                <table id="revisions-table">
+                    <thead>
+                        <tr>
+                            <th>Title</th>
+                            <th>Feedback</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Revisions will be populated here -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <script src="script.js">document.addEventListener('DOMContentLoaded', function () {
+        const feedbackForm = document.getElementById('feedbackForm');
+        const dissertationSelect = document.getElementById('dissertationSelect');
+        const revisionsTable = document.getElementById('revisions-table').getElementsByTagName('tbody')[0];
+    
+        // Example data for dissertations
+        let dissertations = [
+            { id: 1, title: 'Dissertation 1', feedback: 'Please review chapter 2.' },
+            { id: 2, title: 'Dissertation 2', feedback: 'Consider revising the introduction.' }
+        ];
+    
+        // Populate dissertation options
+        dissertations.forEach(d => {
+            const option = document.createElement('option');
+            option.value = d.id;
+            option.text = d.title;
+            dissertationSelect.appendChild(option);
+        });
+    
+        function updateRevisionsTable() {
+            revisionsTable.innerHTML = '';
+            dissertations.forEach(d => {
+                if (d.feedback) {
+                    const row = revisionsTable.insertRow();
+                    row.insertCell(0).innerText = d.title;
+                    row.insertCell(1).innerText = d.feedback;
+                    const actionsCell = row.insertCell(2);
+    
+                    const editButton = document.createElement('button');
+                    editButton.innerText = 'Edit';
+                    editButton.addEventListener('click', () => {
+                        editFeedback(d);
+                    });
+                    actionsCell.appendChild(editButton);
+    
+                    const resubmitButton = document.createElement('button');
+                    resubmitButton.innerText = 'Resubmit';
+                    resubmitButton.addEventListener('click', () => {
+                        resubmitDissertation(d);
+                    });
+                    actionsCell.appendChild(resubmitButton);
+                }
+            });
+        }
+    
+        feedbackForm.addEventListener('submit', function (e) {
+            e.preventDefault();
+            const selectedDissertationId = dissertationSelect.value;
+            const feedback = document.getElementById('feedback').value;
+    
+            const dissertation = dissertations.find(d => d.id === parseInt(selectedDissertationId));
+            if (dissertation) {
+                dissertation.feedback = feedback;
+                alert('Feedback submitted successfully!');
+                updateRevisionsTable();
+            } else {
+                alert('Dissertation not found.');
+            }
+        });
+    
+        function editFeedback(dissertation) {
+            const newFeedback = prompt('Edit Feedback:', dissertation.feedback);
+            if (newFeedback !== null) {
+                dissertation.feedback = newFeedback;
+                updateRevisionsTable();
+            }
+        }
+    
+        function resubmitDissertation(dissertation) {
+            alert(`Resubmitting ${dissertation.title}`);
+            // Implement resubmit logic here
+        }
+    
+        updateRevisionsTable();
+    });
+    </script>
+</body>
+</html>

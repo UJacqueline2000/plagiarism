@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dissertation Validation System Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f4f4f4;
+    }
+    
+    .container {
+        width: 80%;
+        margin: auto;
+        overflow: hidden;
+    }
+    
+    header {
+        background: #333;
+        color: #fff;
+        padding: 1rem 0;
+        text-align: center;
+    }
+    
+    nav {
+        background: #555;
+        color: #fff;
+        padding: 0.5rem;
+    }
+    
+    nav ul {
+        list-style: none;
+        padding: 0;
+    }
+    
+    nav ul li {
+        display: inline;
+        margin-right: 1rem;
+    }
+    
+    nav ul li a {
+        color: #fff;
+        text-decoration: none;
+    }
+    
+    main {
+        padding: 1rem;
+        background: #fff;
+        margin-top: 1rem;
+    }
+    
+    section {
+        margin-bottom: 2rem;
+    }
+    
+    h2 {
+        color: #333;
+    }
+    
+    ul {
+        list-style: none;
+        padding: 0;
+    }
+    
+    li {
+        padding: 0.5rem;
+        border-bottom: 1px solid #ddd;
+    }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Dashboard</h1>
+        </header>
+        <nav>
+            <ul>
+                <li><a href="#overview">Overview</a></li>
+                <li><a href="#recent-activity">Recent Activity</a></li>
+                <li><a href="#notifications">Notifications</a></li>
+            </ul>
+        </nav>
+        <main>
+            <section id="overview">
+                <h2>Overview</h2>
+                <p>Summary of recent activities and pending reviews.</p>
+            </section>
+            <section id="recent-activity">
+                <h2>Recent Activity</h2>
+                <ul id="activity-list">
+                    <!-- Recent activities will be dynamically added here -->
+                </ul>
+            </section>
+            <section id="notifications">
+                <h2>Notifications</h2>
+                <ul id="notification-list">
+                    <!-- Notifications will be dynamically added here -->
+                </ul>
+            </section>
+        </main>
+    </div>
+    <script src="script.js">document.addEventListener('DOMContentLoaded', function () {
+        // Sample data for recent activities and notifications
+        const recentActivities = [
+            'Dissertation uploaded by Student A',
+            'Feedback provided by Academic Staff B',
+            'Dissertation resubmitted by Student C',
+        ];
+    
+        const notifications = [
+            'New feedback on your dissertation',
+            'Your plagiarism report is ready',
+            'Reminder: Submit your final dissertation by June 30',
+        ];
+    
+        // Function to display recent activities
+        const displayRecentActivities = () => {
+            const activityList = document.getElementById('activity-list');
+            recentActivities.forEach(activity => {
+                const listItem = document.createElement('li');
+                listItem.textContent = activity;
+                activityList.appendChild(listItem);
+            });
+        };
+    
+        // Function to display notifications
+        const displayNotifications = () => {
+            const notificationList = document.getElementById('notification-list');
+            notifications.forEach(notification => {
+                const listItem = document.createElement('li');
+                listItem.textContent = notification;
+                notificationList.appendChild(listItem);
+            });
+        };
+    
+        // Call functions to display data
+        displayRecentActivities();
+        displayNotifications();
+    });
+    </script>
+</body>
+</html>

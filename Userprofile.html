@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* General styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+/* Container styles */
+.container {
+    width: 80%;
+    margin: auto;
+    overflow: hidden;
+}
+
+/* Navigation styles */
+nav {
+    background: #333;
+    color: #fff;
+    padding: 10px 0;
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: space-around;
+}
+
+nav ul li {
+    position: relative;
+}
+
+nav ul li a {
+    color: #fff;
+    text-decoration: none;
+    padding: 10px 20px;
+    display: block;
+}
+
+nav ul li a:hover {
+    background: #575757;
+}
+
+nav ul ul {
+    display: none;
+    position: absolute;
+    top: 40px;
+    left: 0;
+    background: #444;
+    padding: 0;
+}
+
+nav ul ul li {
+    width: 200px;
+}
+
+nav ul ul li a {
+    padding: 10px 15px;
+}
+
+nav ul li:hover > ul {
+    display: block;
+}
+
+nav ul ul li a:hover {
+    background: #575757;
+}
+
+/* Profile section styles */
+#profile-section {
+    padding: 20px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+}
+
+#profile-section h2 {
+    margin-top: 0;
+}
+
+#edit-profile-form, #change-password-form {
+    display: flex;
+    flex-direction: column;
+}
+
+#edit-profile-form label, #change-password-form label {
+    margin: 10px 0 5px;
+}
+
+#edit-profile-form input, #change-password-form input {
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+#edit-profile-form button, #change-password-form button {
+    padding: 10px;
+    margin-top: 10px;
+    background: #333;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+#edit-profile-form button:hover, #change-password-form button:hover {
+    background: #575757;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <nav>
+            <ul>
+                <li><a href="Dashboard.html">Dashboard</a></li>
+                <li><a href="Userprofile.html">User Profile</a>
+                    <ul>
+                        <li><a href="#view">View Profile</a></li>
+                        <li><a href="Editprofile.html">Edit Profile</a></li>
+                        <li><a href="#change-password">Change Password</a></li>
+                    </ul>
+                </li>
+                <li><a href="upload.html">Dissertations</a></li>
+                <li><a href="Plagiarismreports.html">Plagiarism Reports</a></li>
+                <li><a href="Review.html">Review and Feedback</a></li>
+                <li><a href="#resources">Resources</a></li>
+                <li><a href="#settings">Settings</a></li>
+                <li><a href="Logout.html">Logout</a></li>
+            </ul>
+        </nav>
+
+        <div id="profile-section">
+            <div id="view-profile" class="profile-content">
+                <h2>View Profile</h2>
+                <p><strong>Name:</strong> John Doe</p>
+                <p><strong>Email:</strong> johndoe@example.com</p>
+                <p><strong>Department:</strong> Computer Science</p>
+                <p><strong>Year:</strong> 4</p>
+                <button onclick="showEditProfile()">Edit Profile</button>
+                <button onclick="showChangePassword()">Change Password</button>
+            </div>
+
+            <div id="edit-profile" class="profile-content" style="display:none;">
+                <h2>Edit Profile</h2>
+                <form id="editProfileForm">
+                    <label for="editName">Name:</label>
+                    <input type="text" id="editName" name="name" value="John Doe">
+                    <label for="editEmail">Email:</label>
+                    <input type="email" id="editEmail" name="email" value="johndoe@example.com">
+                    <label for="editDepartment">Department:</label>
+                    <input type="text" id="editDepartment" name="department" value="Computer Science">
+                    <label for="editYear">Year:</label>
+                    <input type="number" id="editYear" name="year" value="4">
+                    <button type="submit">Save Changes</button>
+                    <button type="button" onclick="showViewProfile()">Cancel</button>
+                </form>
+            </div>
+
+            <div id="change-password" class="profile-content" style="display:none;">
+                <h2>Change Password</h2>
+                <form id="changePasswordForm">
+                    <label for="currentPassword">Current Password:</label>
+                    <input type="password" id="currentPassword" name="currentPassword">
+                    <label for="newPassword">New Password:</label>
+                    <input type="password" id="newPassword" name="newPassword">
+                    <label for="confirmNewPassword">Confirm New Password:</label>
+                    <input type="password" id="confirmNewPassword" name="confirmNewPassword">
+                    <button type="submit">Change Password</button>
+                    <button type="button" onclick="showViewProfile()">Cancel</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script src="scripts.js">
+        document.addEventListener('DOMContentLoaded', function () {
+    const editProfileBtn = document.getElementById('edit-profile-btn');
+    const changePasswordBtn = document.getElementById('change-password-btn');
+    const cancelEditBtn = document.getElementById('cancel-edit-btn');
+    const cancelPasswordBtn = document.getElementById('cancel-password-btn');
+    const viewProfile = document.getElementById('view-profile');
+    const editProfile = document.getElementById('edit-profile');
+    const changePassword = document.getElementById('change-password');
+
+    editProfileBtn.addEventListener('click', function () {
+        viewProfile.style.display = 'none';
+        editProfile.style.display = 'block';
+    });
+
+    changePasswordBtn.addEventListener('click', function () {
+        viewProfile.style.display = 'none';
+        changePassword.style.display = 'block';
+    });
+
+    cancelEditBtn.addEventListener('click', function () {
+        editProfile.style.display = 'none';
+        viewProfile.style.display = 'block';
+    });
+
+    cancelPasswordBtn.addEventListener('click', function () {
+        changePassword.style.display = 'none';
+        viewProfile.style.display = 'block';
+    });
+
+    document.getElementById('edit-profile-form').addEventListener('submit', function (e) {
+        e.preventDefault();
+        // Implement profile update logic here
+        
+        alert('Profile updated successfully!');
+        editProfile.style.display = 'none';
+        viewProfile.style.display = 'block';
+    });
+
+    document.getElementById('change-password-form').addEventListener('submit', function (e) {
+        e.preventDefault();
+        // Implement password change logic here
+        
+        alert('Password changed successfully!');
+        changePassword.style.display = 'none';
+        viewProfile.style.display = 'block';
+    });
+});
+
+    </script>
+</body>
+</html>

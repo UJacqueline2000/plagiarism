@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Review Submissions</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 0;
+    }
+    
+    .container {
+        max-width: 1000px;
+        margin: 50px auto;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    
+    h1, h2 {
+        text-align: center;
+    }
+    
+    nav ul {
+        list-style-type: none;
+        padding: 0;
+    }
+    
+    nav ul li {
+        display: inline;
+        margin-right: 10px;
+    }
+    
+    nav ul li a {
+        text-decoration: none;
+        color: #007bff;
+    }
+    
+    nav ul li a:hover {
+        text-decoration: underline;
+    }
+    
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+    }
+    
+    table, th, td {
+        border: 1px solid #ddd;
+    }
+    
+    th, td {
+        padding: 10px;
+        text-align: left;
+    }
+    
+    th {
+        background-color: #f4f4f4;
+    }
+    
+    button {
+        padding: 5px 10px;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+    
+    button:hover {
+        background-color: #0056b3;
+    }
+    nav {
+    background-color: #6fadc5;
+    padding: 30px;
+}
+
+nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+nav ul li {
+    float: left;
+    margin-right: 10px;
+}
+
+nav ul li a {
+    color: rgb(37, 2, 2);
+    text-decoration: none;
+    padding: 10px;
+}
+
+nav ul li a:hover {
+    background-color: #0fe995;
+}
+    
+    </style>
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="manageusers.html">Manage Users</a></li>
+            <li><a href="Reviewsubmission.html">Review Submissions</a></li>
+            <li><a href="#generateReports">Generate Reports</a></li>
+            <li><a href="#systemSettings">System Settings</a></li>
+            <li><a href="Logout.html">Logout</a></li>
+        </ul>
+    </nav>
+    <div class="container">
+        <h1>Review Submission overview</h1>
+
+        <section id="review-submissions">
+            <h2>Review Submissions</h2>
+            <table id="submissionTable">
+                <thead>
+                    <tr>
+                        <th>Student Name</th>
+                        <th>Dissertation Title</th>
+                        <th>Submission Date</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Submission rows will be added here dynamically -->
+                </tbody>
+            </table>
+        </section>
+    </div>
+    <script src="Reviewsubmission.js"></script>
+</body>
+</html>

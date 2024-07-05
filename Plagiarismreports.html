@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plagiarism Reports</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* General styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+.container {
+    width: 80%;
+    margin: auto;
+    overflow: hidden;
+}
+
+nav {
+    background: #333;
+    color: #fff;
+    padding: 10px 0;
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: space-around;
+}
+
+nav ul li {
+    position: relative;
+}
+
+nav ul li a {
+    color: #fff;
+    text-decoration: none;
+    padding: 10px 20px;
+    display: block;
+}
+
+nav ul li a:hover {
+    background: #575757;
+}
+
+nav ul ul {
+    display: none;
+    position: absolute;
+    top: 40px;
+    left: 0;
+    background: #444;
+    padding: 0;
+}
+
+nav ul ul li {
+    width: 200px;
+}
+
+nav ul ul li a {
+    padding: 10px 15px;
+}
+
+nav ul li:hover > ul {
+    display: block;
+}
+
+nav ul ul li a:hover {
+    background: #575757;
+}
+
+h2 {
+    color: #333;
+}
+
+form, table {
+    margin-top: 20px;
+}
+
+form label {
+    display: block;
+    margin: 10px 0 5px;
+}
+
+form input, form select, form button {
+    padding: 10px;
+    margin-bottom: 10px;
+    width: 100%;
+    max-width: 400px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+form button {
+    background: #333;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+}
+
+form button:hover {
+    background: #575757;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+table th, table td {
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: left;
+}
+
+table th {
+    background: #333;
+    color: #fff;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <nav>
+            <ul>
+                <li><a href="Dashboard.html">Dashboard</a></li>
+                <li><a href="Userprofile.html">User Profile</a></li>
+                <li><a href="#dissertations">Dissertations</a>
+                    <ul>
+                        <li><a href="upload.html">Upload Dissertation</a></li>
+                        <li><a href="#view">View Uploaded Dissertations</a></li>
+                        <li><a href="#check">Check Plagiarism</a></li>
+                        <li><a href="#history">Submission History</a></li>
+                    </ul>
+                </li>
+                <li><a href="Plagiarismreports.html">Plagiarism Reports</a></li>
+                <li><a href="Review.html">Review and Feedback</a></li>
+                <li><a href="#resources">Resources</a></li>
+                <li><a href="#settings">Settings</a></li>
+                <li><a href="Logout.html">Logout</a></li>
+            </ul>
+        </nav>
+
+        <div id="reports-section">
+            <h2>Plagiarism Reports</h2>
+            <table id="reports-table">
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Similarity Score</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Reports will be populated here -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <script src="script.js">document.addEventListener('DOMContentLoaded', function () {
+        const reportsTable = document.getElementById('reports-table').getElementsByTagName('tbody')[0];
+    
+        // Example data for reports
+        let reports = [
+            { title: 'Dissertation 1', similarityScore: '15%', details: 'Lorem ipsum dolor sit amet...', sources: ['Source 1', 'Source 2'] },
+            { title: 'Dissertation 2', similarityScore: '45%', details: 'Consectetur adipiscing elit...', sources: ['Source 3', 'Source 4'] },
+        ];
+    
+        function updateReportsTable() {
+            reportsTable.innerHTML = '';
+            reports.forEach(report => {
+                const row = reportsTable.insertRow();
+                row.insertCell(0).innerText = report.title;
+                row.insertCell(1).innerText = report.similarityScore;
+                const actionsCell = row.insertCell(2);
+                
+                const viewButton = document.createElement('button');
+                viewButton.innerText = 'View Report';
+                viewButton.addEventListener('click', () => {
+                    viewReport(report);
+                });
+                actionsCell.appendChild(viewButton);
+    
+                const downloadButton = document.createElement('button');
+                downloadButton.innerText = 'Download Report';
+                downloadButton.addEventListener('click', () => {
+                    downloadReport(report);
+                });
+                actionsCell.appendChild(downloadButton);
+            });
+        }
+    
+        function viewReport(report) {
+            alert(`Title: ${report.title}\nSimilarity Score: ${report.similarityScore}\nDetails: ${report.details}\nSources: ${report.sources.join(', ')}`);
+        }
+    
+        function downloadReport(report) {
+            const reportContent = `
+                Title: ${report.title}\n
+                Similarity Score: ${report.similarityScore}\n
+                Details: ${report.details}\n
+                Sources: ${report.sources.join(', ')}
+            `;
+            const blob = new Blob([reportContent], { type: 'text/plain' });
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = `${report.title}_Plagiarism_Report.txt`;
+            link.click();
+        }
+    
+        updateReportsTable();
+    });
+    </script>
+</body>
+</html>

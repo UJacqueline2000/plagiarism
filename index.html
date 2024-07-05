@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dissertation Plagiarism Checker</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <nav>
+    <ul>
+        <li><a href="Dashboard.html">Dashboard</a></li>
+        <li><a href="profile.html">User Profile</a></li>
+        <li><a href="#dissertations">Dissertations</a>
+            <ul>
+                <li><a href="upload.html">Upload Dissertation</a></li>
+                <li><a href="#view">View Uploaded Dissertations</a></li>
+                <li><a href="#check">Check Plagiarism</a></li>
+                <li><a href="#history">Submission History</a></li>
+            </ul>
+        </li>
+        <li><a href="#reports">Plagiarism Reports</a></li>
+        <li><a href="#review">Review and Feedback</a></li>
+        <li><a href="#resources">Resources</a></li>
+        <li><a href="#logout">Logout</a></li>
+    </ul>
+</nav>
+
+    <div class="container">
+        <h1>Dissertation Plagiarism Checker</h1>
+
+        <!-- Sign-Up Form -->
+        <form id="signupForm">
+            <h2>Sign Up</h2>
+            <label for="signupUsername">Username:</label>
+            <input type="text" id="signupUsername" name="username" required>
+            <label for="signupEmail">Email:</label>
+            <input type="email" id="signupEmail" name="email" required>
+            <label for="signupPassword">Password:</label>
+            <input type="password" id="signupPassword" name="password" required>
+            <button type="submit">Sign Up</button>
+        </form>
+
+        <!-- Sign-In Form -->
+        <form id="signinForm">
+            <h2>Sign In</h2>
+            <label for="signinEmail">Email:</label>
+            <input type="email" id="signinEmail" name="email" required>
+            <label for="signinPassword">Password:</label>
+            <input type="password" id="signinPassword" name="password" required>
+            <button type="submit">Sign In</button>
+        </form>
+        <div id="userProfile" style="display:none;">
+            <h2>User Profile</h2>
+            <p id="usernameDisplay"></p>
+            <p id="emailDisplay"></p>
+            <button id="logoutButton">Log Out</button>
+        </div>
+
+        <!-- Upload Form -->
+        <form id="uploadForm" style="display:none;">
+            <h2>Upload your Dissertation</h2>
+            <label for="fileInput">Choose a file:</label>
+            <input type="file" id="fileInput" name="file" accept=".txt,.pdf,.docx" required>
+            <button type="submit">Upload</button>
+        </form>
+
+        <div id="result">
+            <!-- Results will be displayed here -->
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

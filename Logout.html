@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logout</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+    font-family: Arial, sans-serif;
+}
+
+nav {
+    background-color: #333;
+    padding: 10px;
+}
+
+nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+nav ul li {
+    float: left;
+    margin-right: 10px;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    padding: 10px;
+}
+
+nav ul li a:hover {
+    background-color: #575757;
+}
+
+h2 {
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 5px;
+}
+
+#logoutSection {
+    padding: 20px;
+    background-color: #f4f4f4;
+}
+
+button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+    </style>
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="Dashboard.html">Dashboard</a></li>
+            <li><a href="Userprofile.html">User Profile</a></li>
+            <li><a href="#dissertations">Dissertations</a>
+                <ul>
+                    <li><a href="upload.html">Upload Dissertation</a></li>
+                    <li><a href="#view">View Uploaded Dissertations</a></li>
+                    <li><a href="#check">Check Plagiarism</a></li>
+                    <li><a href="#history">Submission History</a></li>
+                </ul>
+            </li>
+            <li><a href="Plagiarismreports.html">Plagiarism Reports</a></li>
+            <li><a href="Review.html">Review and Feedback</a></li>
+            <li><a href="#resources">Resources</a></li>
+            <li><a href="#settings">Settings</a></li>
+            <li><a href="Logout.html" id="logoutButton">Logout</a></li>
+        </ul>
+    </nav>
+    <div id="logoutSection">
+        <h2>Logout</h2>
+        <button id="logoutButton">Logout</button>
+    </div>
+    <script src="logout.js">document.addEventListener('DOMContentLoaded', function () {
+        const logoutButton = document.getElementById('logoutButton');
+    
+        logoutButton.addEventListener('click', function (e) {
+            e.preventDefault();
+            // Perform logout operation
+            logoutUser();
+        });
+    
+        function logoutUser() {
+            // Clear user session or token
+            localStorage.removeItem('userToken');
+            // Redirect to login page or home page
+            window.location.href = 'login.html';
+        }
+    });
+    </script>
+</body>
+</html>

@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dissertation Management</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* General styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+.container {
+    width: 80%;
+    margin: auto;
+    overflow: hidden;
+}
+
+nav {
+    background: #333;
+    color: #fff;
+    padding: 10px 0;
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: space-around;
+}
+
+nav ul li {
+    position: relative;
+}
+
+nav ul li a {
+    color: #fff;
+    text-decoration: none;
+    padding: 10px 20px;
+    display: block;
+}
+
+nav ul li a:hover {
+    background: #575757;
+}
+
+nav ul ul {
+    display: none;
+    position: absolute;
+    top: 40px;
+    left: 0;
+    background: #444;
+    padding: 0;
+}
+
+nav ul ul li {
+    width: 200px;
+}
+
+nav ul ul li a {
+    padding: 10px 15px;
+}
+
+nav ul li:hover > ul {
+    display: block;
+}
+
+nav ul ul li a:hover {
+    background: #575757;
+}
+
+h2 {
+    color: #333;
+}
+
+form, table {
+    margin-top: 20px;
+}
+
+form label {
+    display: block;
+    margin: 10px 0 5px;
+}
+
+form input, form select, form button {
+    padding: 10px;
+    margin-bottom: 10px;
+    width: 100%;
+    max-width: 400px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+form button {
+    background: #333;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+}
+
+form button:hover {
+    background: #575757;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+table th, table td {
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: left;
+}
+
+table th {
+    background: #333;
+    color: #fff;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <nav>
+            <ul>
+                <li><a href="Dashboard.html">Dashboard</a></li>
+                <li><a href="Userprofile.html">User Profile</a></li>
+                <li><a href="#dissertations">Dissertations</a>
+                    <ul>
+                        <li><a href="upload.html">Upload Dissertation</a></li>
+                        <li><a href="#view">View Uploaded Dissertations</a></li>
+                        <li><a href="#check">Check Plagiarism</a></li>
+                        <li><a href="#history">Submission History</a></li>
+                    </ul>
+                </li>
+                <li><a href="Plagiarismreports.html">Plagiarism Reports</a></li>
+                <li><a href="Review.html">Review and Feedback</a></li>
+                <li><a href="#resources">Resources</a></li>
+                <li><a href="#settings">Settings</a></li>
+                <li><a href="Logout.html">Logout</a></li>
+            </ul>
+        </nav>
+
+        <div id="upload-section">
+            <h2>Upload Dissertation</h2>
+            <form id="uploadForm">
+                <label for="fileInput">Select Dissertation File (PDF, DOC, DOCX):</label>
+                <input type="file" id="fileInput" name="file" accept=".pdf,.doc,.docx" required>
+                <button type="submit">Upload</button>
+            </form>
+            <div id="upload-result"></div>
+        </div>
+
+        <div id="view-section">
+            <h2>View Uploaded Dissertations</h2>
+            <table id="uploaded-dissertations">
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Uploaded dissertations will be populated here -->
+                </tbody>
+            </table>
+        </div>
+
+        <div id="check-section">
+            <h2>Check Plagiarism</h2>
+            <form id="checkForm">
+                <label for="dissertationSelect">Select Dissertation:</label>
+                <select id="dissertationSelect">
+                    <!-- Dissertation options will be populated here -->
+                </select>
+                <button type="submit">Check Plagiarism</button>
+            </form>
+            <div id="check-result"></div>
+        </div>
+
+        <div id="history-section">
+            <h2>Submission History</h2>
+            <table id="submission-history">
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Date Submitted</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Submission history will be populated here -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <script src="script.js">document.addEventListener('DOMContentLoaded', function () {
+        const uploadForm = document.getElementById('uploadForm');
+        const uploadResult = document.getElementById('upload-result');
+        const uploadedDissertationsTable = document.getElementById('uploaded-dissertations').getElementsByTagName('tbody')[0];
+        const dissertationSelect = document.getElementById('dissertationSelect');
+        const checkForm = document.getElementById('checkForm');
+        const checkResult = document.getElementById('check-result');
+        const submissionHistoryTable = document.getElementById('submission-history').getElementsByTagName('tbody')[0];
+    
+        // Example data
+        let dissertations = [];
+        let submissionHistory = [];
+    
+        uploadForm.addEventListener('submit', function (e) {
+            e.preventDefault();
+            const fileInput = document.getElementById('fileInput');
+            const file = fileInput.files[0];
+    
+            if (!file) {
+                alert('Please select a file to upload.');
+                return;
+            }
+    
+            const formData = new FormData();
+            formData.append('file', file);
+    
+            // Validate file type and size (e.g., maximum size 5MB)
+            const allowedExtensions = ['pdf', 'doc', 'docx'];
+            const maxSize = 5 * 1024 * 1024; // 5MB
+    
+            const fileExtension = file.name.split('.').pop().toLowerCase();
+            if (!allowedExtensions.includes(fileExtension)) {
+                alert('Invalid file type. Only PDF, DOC, and DOCX are allowed.');
+                return;
+            }
+    
+            if (file.size > maxSize) {
+                alert('File size exceeds the maximum limit of 5MB.');
+                return;
+            }
+    
+            // Simulate file upload
+            setTimeout(() => {
+                const dissertation = {
+                    title: file.name,
+                    status: 'Uploaded',
+                    date: new Date().toLocaleDateString()
+                };
+                dissertations.push(dissertation);
+                submissionHistory.push(dissertation);
+                updateDissertationsTable();
+                updateDissertationSelect();
+                updateSubmissionHistoryTable();
+                uploadResult.innerHTML = 'File uploaded successfully!';
+            }, 1000);
+        });
+    
+        checkForm.addEventListener('submit', function (e) {
+            e.preventDefault();
+            const selectedDissertation = dissertationSelect.value;
+    
+            if (!selectedDissertation) {
+                alert('Please select a dissertation to check for plagiarism.');
+                return;
+            }
+    
+            // Simulate plagiarism check
+            setTimeout(() => {
+                const dissertation = dissertations.find(d => d.title === selectedDissertation);
+                dissertation.status = 'Checked';
+                updateDissertationsTable();
+                updateSubmissionHistoryTable();
+                checkResult.innerHTML = 'Plagiarism check completed successfully!';
+            }, 1000);
+        });
+    
+        function updateDissertationsTable() {
+            uploadedDissertationsTable.innerHTML = '';
+            dissertations.forEach(dissertation => {
+                const row = uploadedDissertationsTable.insertRow();
+                row.insertCell(0).innerText = dissertation.title;
+                row.insertCell(1).innerText = dissertation.status;
+                const actionsCell = row.insertCell(2);
+                if (dissertation.status === 'Uploaded') {
+                    const checkButton = document.createElement('button');
+                    checkButton.innerText = 'Check Plagiarism';
+                    checkButton.addEventListener('click', () => {
+                        dissertation.status = 'Checked';
+                        updateDissertationsTable();
+                        updateSubmissionHistoryTable();
+                    });
+                    actionsCell.appendChild(checkButton);
+                }
+            });
+        }
+    
+        function updateDissertationSelect() {
+            dissertationSelect.innerHTML = '';
+            dissertations.forEach(dissertation => {
+                const option = document.createElement('option');
+                option.value = dissertation.title;
+                option.innerText = dissertation.title;
+                dissertationSelect.appendChild(option);
+            });
+        }
+    
+        function updateSubmissionHistoryTable() {
+            submissionHistoryTable.innerHTML = '';
+            submissionHistory.forEach(record => {
+                const row = submissionHistoryTable.insertRow();
+                row.insertCell(0).innerText = record.title;
+                row.insertCell(1).innerText = record.date;
+                row.insertCell(2).innerText = record.status;
+            });
+        }
+    });
+    </script>
+</body>
+</html>

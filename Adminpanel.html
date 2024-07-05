@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+    font-family: Arial, sans-serif;
+}
+
+nav {
+    background-color: #333;
+    padding: 10px;
+}
+
+nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+nav ul li {
+    float: left;
+    margin-right: 10px;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    padding: 10px;
+}
+
+nav ul li a:hover {
+    background-color: #575757;
+}
+
+h2 {
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 5px;
+}
+
+form {
+    margin-bottom: 20px;
+}
+
+form input, form select, form button {
+    display: block;
+    margin: 10px 0;
+    padding: 10px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+#userList, #submissionList {
+    border-top: 1px solid #ddd;
+    padding-top: 10px;
+}
+
+#userList div, #submissionList div {
+    padding: 5px 0;
+}
+
+    </style>
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="manageusers.html">Manage Users</a></li>
+            <li><a href="Reviewsubmission.html">Review Submissions</a></li>
+            <li><a href="#generateReports">Generate Reports</a></li>
+            <li><a href="#systemSettings">System Settings</a></li>
+            <li><a href="Logout.html">Logout</a></li>
+        </ul>
+    </nav>
+    
+    <div id="manageUsers">
+        <h2>Manage Users</h2>
+        <form id="userForm">
+            <input type="text" id="username" placeholder="Username" required>
+            <input type="password" id="password" placeholder="Password" required>
+            <select id="role">
+                <option value="student">Student</option>
+                <option value="faculty">Faculty</option>
+                <option value="admin">Admin</option>
+            </select>
+            <button type="submit">Add User</button>
+        </form>
+        <!--<div id="userList">
+            <!-- User list will be populated here
+        </div> -->
+    </div>
+
+    <div id="reviewSubmissions">
+        <h2>Review Submissions</h2>
+        <div id="submissionList">
+            <!-- Submission list will be populated here -->
+        </div>
+    </div>
+
+    <div id="generateReports">
+        <h2>Generate Reports</h2>
+        <button onclick="generateReport()">Generate Report</button>
+        <div id="reportContent">
+            <!-- Report content will be displayed here -->
+        </div>
+    </div>
+
+    <script src="admin.js"></script>
+</body>
+</html>
